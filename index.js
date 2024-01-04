@@ -5,6 +5,9 @@ const { TranslationServiceClient } = require('@google-cloud/translate');
 // Set up Google Application Credentials
 process.env.GOOGLE_APPLICATION_CREDENTIALS = 'credentials.json';
 
+const scopes =
+  'https://www.googleapis.com/auth/youtube.force-ssl https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/cloud-translation';
+
 // Google Cloud Translation function
 async function translateText(text, targetLanguage) {
   const translationClient = new TranslationServiceClient();
@@ -21,7 +24,7 @@ async function translateText(text, targetLanguage) {
 async function getVideoMetadata(videoId) {
   const auth = new google.auth.GoogleAuth({
     keyFile: 'credentials.json',
-    scopes: ['https://www.googleapis.com/auth/youtube.force-ssl'],
+    scopes: scopes,
   });
   const authClient = await auth.getClient();
   const youtube = google.youtube({
@@ -33,6 +36,8 @@ async function getVideoMetadata(videoId) {
     part: 'snippet',
     id: videoId,
   });
+
+  console.log(videoResponse);
 
   return videoResponse.data.items?.[0]?.snippet || null;
 }
@@ -54,6 +59,8 @@ async function updateVideoMetadataWithTranslations(videoId, targetLanguages) {
       langCode,
     );
 
+    console.log(translatedTitle, translatedDescription);
+
     videoLocalizations[langCode] = {
       title: translatedTitle,
       description: translatedDescription,
@@ -63,8 +70,8 @@ async function updateVideoMetadataWithTranslations(videoId, targetLanguages) {
   videoSnippet.localizations = videoLocalizations;
 
   const auth = new google.auth.GoogleAuth({
-    keyFile: '/path/to/client_secret.json',
-    scopes: ['https://www.googleapis.com/auth/youtube.force-ssl'],
+    keyFile: 'credentials.json',
+    scopes: scopes,
   });
   const authClient = await auth.getClient();
   const youtube = google.youtube({

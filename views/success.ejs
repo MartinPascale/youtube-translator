@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Protected Page</title>
+  </head>
+  <body>
+    <h1>Welcome, <%= name %></h1>
+    <p>Profile Picture:</p>
+    <img
+      src="<%= picture %>"
+      alt="Profile Picture"
+      style="width: 200px; height: 200px"
+    />
+    <form action="/updateVideo" method="POST">
+      <input type="text" name="videoId" id="videoId" />
+      <input type="submit" value="Update Video" />
+    </form>
+  </body>
+</html>
