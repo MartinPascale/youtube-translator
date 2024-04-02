@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Translate Video Title and Description</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Translate Video Title and Description</h1>
+      <form action="/submit" method="post" class="metadata-form">
+        <div class="form-group">
+          <label for="videoId">Video ID:</label>
+          <input type="text" id="videoId" name="videoId" required />
+        </div>
+        <div class="form-group">
+          <label for="languageCodes">Language Codes (comma-separated):</label>
+          <input type="text" id="languageCodes" name="languageCodes" required />
+        </div>
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input type="text" id="title" name="title" required />
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" required></textarea>
+        </div>
+        <input type="submit" value="Update Metadata" class="submit-button" />
+      </form>
+    </div>
+  </body>
+</html>
